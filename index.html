@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FizzBuzz</title>
+  </head>
+  <body>
+    <h1>Get a FizzBuzz Result</h1>
+    <label>Type a number:</label>
+    <input type="number" name="angka" id="angka" />
+    <button id="btn">Click here</button>
+    <hr />
+    <div id="para"></div>
+
+    <script>
+      let angka = document.getElementById("angka");
+      let btn = document.getElementById("btn");
+      let para = document.getElementById("para");
+
+      function fizzbuzz() {
+        console.log(angka.value);
+        if (angka.value % 3 == 0 && angka.value % 5 == 0) {
+          const text = document.createElement("p");
+          text.innerHTML = "FizzBuzz!";
+          para.appendChild(text);
+        } else if (angka.value % 5 == 0) {
+          const text = document.createElement("p");
+          text.innerHTML = "Buzz!";
+          para.appendChild(text);
+        } else if (angka.value % 3 == 0) {
+          const text = document.createElement("p");
+          text.innerHTML = "Fizz!";
+          para.appendChild(text);
+        } else {
+          const text = document.createElement("p");
+          text.innerHTML = angka.value;
+          para.appendChild(text);
+        }
+      }
+
+      btn.addEventListener("click", fizzbuzz);
+    </script>
+  </body>
+</html>

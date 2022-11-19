@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get Pokemon</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Get Pokemon!</h1>
+    <button onclick="fetchPokemon()">Get!</button>
+    <div id="getdata" class="getdata"></div>
+    <script>
+      async function fetchPokemon() {
+        const response = await fetch(
+          "https://pokeapi.co/api/v2/pokemon?limit=30",
+          { method: "GET" }
+        );
+
+        const json = await response.json();
+        const result = json.results;
+        // console.log(result);
+
+        let title = "";
+        let img = "";
+        let type = "";
+        let card = "";
+        const arr = [];
+        for (i = 0; i < result.length; i++) {
+          const detail = await fetch(result[i].url, { method: "GET" });
+          const json2 = await detail.json();
+          arr.push(json2);
+        }
+        for (let i = 0; i < arr.length; i++) {
+          title = `<p>${arr[i].id}. ${arr[i].name}</p>`;
+          img = `<img src="${arr[i].sprites.front_default}">`;
+          type = `<p>${arr[i].types[0].type.name}</p>`;
+
+          if (type == "<p>grass</p>") {
+            card =
+              card + `<div class="bg-green"> ${title} ${img} ${type} </div>`;
+          } else if (type == "<p>electric</p>") {
+            card =
+              card + `<div class="bg-yellow"> ${title} ${img} ${type} </div>`;
+          } else if (type == "<p>fire</p>") {
+            card = card + `<div class="bg-red"> ${title} ${img} ${type} </div>`;
+          } else if (type == "<p>water</p>") {
+            card =
+              card + `<div class="bg-blue"> ${title} ${img} ${type} </div>`;
+          } else if (type == "<p>bug</p>") {
+            card =
+              card + `<div class="bg-gray"> ${title} ${img} ${type} </div>`;
+          } else if (type == "<p>normal</p>") {
+            card =
+              card + `<div class="bg-orange"> ${title} ${img} ${type} </div>`;
+          } else if (type == "<p>poison</p>") {
+            card =
+              card + `<div class="bg-violet"> ${title} ${img} ${type} </div>`;
+          } else if (type == "<p>ground</p>") {
+            card =
+              card + `<div class="bg-brown"> ${title} ${img} ${type} </div>`;
+          }
+        }
+        document.getElementById("getdata").innerHTML = card;
+      }
+    </script>
+  </body>
+</html>

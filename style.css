@@ -16,9 +16,64 @@ img {
   margin: 0 auto;
 }
 
-.getdata {
+.pikachu {
   background-color: yellow;
   display: inline-block;
   margin-left: 20px;
   margin-top: 10px;
+}
+
+.getdata {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.bg-green {
+  width: 150px;
+  margin: 5px;
+  background-color: green;
+}
+
+.bg-yellow {
+  width: 150px;
+  margin: 5px;
+  background-color: yellow;
+}
+
+.bg-red {
+  width: 150px;
+  margin: 5px;
+  background-color: red;
+}
+
+.bg-blue {
+  width: 150px;
+  margin: 5px;
+  background-color: blue;
+}
+
+.bg-gray {
+  width: 150px;
+  margin: 5px;
+  background-color: gray;
+}
+
+.bg-orange {
+  width: 150px;
+  margin: 5px;
+  background-color: orange;
+}
+
+.bg-violet {
+  width: 150px;
+  margin: 5px;
+  background-color: violet;
+}
+
+.bg-brown {
+  width: 150px;
+  margin: 5px;
+  background-color: brown;
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get Pikachu</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Get Pikachu!</h1>
+    <button onclick="fetchPikachu()">Get!</button>
+    <div id="getdata" class="getdata"></div>
+    <script>
+      function fetchPikachu() {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+          const response = JSON.parse(this.responseText);
+          console.log(response);
+          let title = `<p>${response.id}. ${response.name}</p>`;
+          let img = `<img src="${response.sprites.front_default}">`;
+          let type = `<p>${response.types[0].type.name}`;
+          document.getElementById("getdata").innerHTML = title + img + type;
+        };
+        xhttp.open("GET", "https://pokeapi.co/api/v2/pokemon/pikachu");
+        xhttp.send();
+      }
+    </script>
+  </body>
+</html>

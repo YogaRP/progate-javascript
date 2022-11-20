@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Chart</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <div>
+      <h1>Top Games</h1>
+      <button onclick="getTopGames()">List Top Games</button>
+      <div id="topgames"></div>
+    </div>
+    <div>
+      <h1>Trending Games</h1>
+      <button onclick="getTrendingGames()">List Top Games</button>
+      <div id="trendinggames"></div>
+    </div>
+    <div>
+      <h1>Free Games</h1>
+      <button class="freebutton" onclick="getFreeGames()">
+        List Free Games
+      </button>
+      <div id="freegames"></div>
+    </div>
+
+    <script>
+      const topgames = document.getElementById("topgames");
+      const trendinggames = document.getElementById("trendinggames");
+      const freegames = document.getElementById("freegames");
+      const getTopGames = async () => {
+        try {
+          const response = await fetch(
+            "https://steamcharts.p.rapidapi.com/api/v1/games/tops",
+            {
+              method: "GET",
+              headers: {
+                "X-RapidAPI-Key": process.env.API_KEY,
+                "X-RapidAPI-Host": "steamcharts.p.rapidapi.com",
+              },
+            }
+          );
+          const data = await response.json();
+          console.log(data);
+
+          let listGame = "";
+
+          for (let i = 0; i < data.length; i++) {
+            const element = `
+                <div>
+                    <h2>${i + 1}. Nama Game: ${data[i].name}</h2>
+                    <h3>Ranking saat ini: ${data[i].rank}</h3>
+                    <p>Banyak pemain saat ini: ${data[i].currentPlayers}</p>
+                    <p>Total jam dimainkan: ${data[i].hoursPlayed}</p>
+                    <p>Puncak pemain: ${data[i].peakPlayers}</p>
+                </div>
+                `;
+            listGame += element;
+          }
+          console.log(listGame);
+          return (topgames.innerHTML = listGame);
+        } catch (err) {
+          console.log(err);
+          alert(err);
+        }
+      };
+
+      const getTrendingGames = async () => {
+        try {
+          const response = await fetch(
+            "https://steamcharts.p.rapidapi.com/api/v1/games/trending",
+            {
+              method: "GET",
+              headers: {
+                "X-RapidAPI-Key": process.env.API_KEY,
+                "X-RapidAPI-Host": "steamcharts.p.rapidapi.com",
+              },
+            }
+          );
+          const data = await response.json();
+          console.log(data);
+
+          let listGame = "";
+
+          for (let i = 0; i < data.length; i++) {
+            const element = `
+                <div>
+                    <h2>${i + 1}. Nama Game: ${data[i].name}</h2>
+                    <p> Banyak Pemain saat ini: ${data[i].currentPlayers}</p>
+                    <p>Pendapatan: ${data[i].gain}</p>
+                </div>
+                `;
+            listGame += element;
+          }
+          console.log(listGame);
+          return (trendinggames.innerHTML = listGame);
+        } catch (err) {
+          console.log(err);
+          alert(err);
+        }
+      };
+
+      const getFreeGames = async () => {
+        try {
+          const response = await fetch(
+            "https://free-to-play-games-database.p.rapidapi.com/api/games",
+            {
+              method: "GET",
+              headers: {
+                "X-RapidAPI-Key": process.env.API_KEY,
+                "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
+              },
+            }
+          );
+          const data = await response.json();
+          console.log(data);
+
+          let listGame = "";
+
+          for (let i = 0; i < data.length; i++) {
+            const element = `
+                <div>
+                    <img src="${data[i].thumbnail}" />
+                    <h2>${i + 1}. Nama Game: ${data[i].title}</h2>
+                    <p>Developer: ${data[i].developer}</p>
+                    <p>Genre: ${data[i].genre}</p>
+                    <p>Platform: ${data[i].platform}</p>
+                </div>
+                `;
+            listGame += element;
+          }
+          return (freegames.innerHTML = listGame);
+        } catch (err) {
+          console.log(err);
+          alert(err);
+        }
+      };
+    </script>
+  </body>
+</html>
